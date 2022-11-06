@@ -1,19 +1,23 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import HeaderLink from './HeaderLink'
-
 const HomepageMain = () => (
-    <main className='flex flex-col xl:flex-row items-center max-w-screen-lg mx-auto'>
-        <div className='space-y-6 xl:space-y-10'>
-            <h1 className='text-3xl md:text-5xl'>
-                Get Your Stuff Reviewed By Real People. Review Real People Stuff, Provide value, Improve your documents
-            </h1>
-
+  <div className="px-6 py-12 md:px-12 bg-gray-50 text-gray-800 text-center lg:text-left">
+    <div className="container mx-auto xl:px-32">
+      <div className="grid lg:grid-cols-2 gap-12 flex items-center">
+        <div className="mt-12 lg:mt-0">
+          <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12">
+            Get Your Stuff Reviewed <br />
+            <span className="text-blue-600"> Improve Docs</span>
+          </h1>
         </div>
+        <div className="mb-12 lg:mb-0">
+          <img
+            src="imgs/hero.svg"
+            className="w-full rounded-lg shadow-lg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
-        
-    </main>
-  
-)
-
-export default HomepageMain
+export default HomepageMain;

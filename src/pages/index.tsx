@@ -1,16 +1,19 @@
-
-import type { NextPage } from 'next'
-import Nav from '../pages/ui/components/Nav'
-import Footer from '../pages/ui/components/Footer'
-import HomepageMain from './ui/components/HomepageMain'
+import type { NextPage } from "next";
+import Nav from "../pages/ui/components/Nav";
+import Footer from "../pages/ui/components/Footer";
+import HomepageMain from "./ui/components/HomepageMain";
+import MidSection from "./ui/components/MidSection";
+import Benefits from "./ui/components/Benefits";
 
 const Home: NextPage = () => {
   return (
     <div className="flex flex-col">
       <Nav />
-      <HomepageMain/>
+      <HomepageMain />
+      <Benefits />
+      <MidSection />
       <Footer />
     </div>
-  )
-}
-export default Home
+  );
+};
+export default Home;
