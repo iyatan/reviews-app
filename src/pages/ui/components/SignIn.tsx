@@ -1,29 +1,37 @@
-import React from "react";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import firebase from "../../../../firebase/clientApp";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useContext, useEffect } from "react";
+import { auth, googleAuthProvider } from "../../../../firebase/clientApp";
+
+import { UserContext } from "../../../../context";
+import router from "next/router";
+import { useUserData } from "../../../../hooks/useUserData";
 
 type AuthProps = {
   isVisible: boolean;
   loginIn: boolean;
   onClose: () => void;
 };
-const uiConfig = {
-  signInSuccessUrl: "/dashboard",
-  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-};
 
 const SignIn = (props: AuthProps) => {
-  const [user, loading, error] = useAuthState(firebase.auth() as any);
   if (!props.isVisible) return null;
   const handleClose = (e: any) => {
     if (e.target.id === "authentication-modal") {
       props.onClose();
     }
   };
-  console.log({ user });
-  console.log({ loading });
-  console.log({ error });
+  const user = useContext(UserContext);
+
+  useEffect(() => {
+    if (user.currentUser) {
+      router.push("/dashboard");
+    }
+  });
+
+  const signInWithGoogle = () => {
+    auth.signInWithPopup(googleAuthProvider).then(() => {
+      //   router.push("/dashboard");
+    });
+  };
+
   return (
     <div
       onClick={handleClose}
@@ -57,12 +65,7 @@ const SignIn = (props: AuthProps) => {
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
               Sign in to our platform
             </h3>
-            <div>
-              <StyledFirebaseAuth
-                uiConfig={uiConfig}
-                firebaseAuth={firebase.auth()}
-              />
-            </div>
+            <button onClick={signInWithGoogle}>sign in with google</button>
           </div>
         </div>
       </div>

@@ -4,8 +4,8 @@ import Footer from "../pages/ui/components/Footer";
 import HomepageMain from "./ui/components/HomepageMain";
 import MidSection from "./ui/components/MidSection";
 import Benefits from "./ui/components/Benefits";
-import SignIn from "./ui/components/SignIn";
-import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../context";
 
 const Home: NextPage = () => {
   return (

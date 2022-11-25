@@ -1,9 +1,12 @@
-// import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import "firebase/auth";
 import "firebase/firestore";
-import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
+import "firebase/compat/database";
 import "firebase/compat/auth";
-// import 'firebase/compat/firestore';
+import "firebase/compat/firestore";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const clientCreditials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -17,7 +20,11 @@ const clientCreditials = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(clientCreditials);
-} else {
-  firebase.app();
 }
-export default firebase;
+
+export const auth = firebase.auth();
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const realTimeDb = firebase.database();
+
+export const firestore = firebase.firestore();
+export const storage = firebase.storage();
