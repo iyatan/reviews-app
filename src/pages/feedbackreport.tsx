@@ -7,7 +7,7 @@ const FeedbackReport: NextPage = () => {
   const [userComments, setUserComments] = useState<{ [key: string]: string[] }>(
     {}
   );
-  console.log({ userComments });
+
   const { currentUser } = useContext(UserContext);
 
   if (!currentUser) {

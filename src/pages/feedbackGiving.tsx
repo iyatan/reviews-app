@@ -1,17 +1,18 @@
 import { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { realTimeDb, storage } from "../../firebase/clientApp";
+import { realTimeDb } from "../../firebase/clientApp";
 import HiCheck from "./ui/components/HiCheck";
 
 const FeedbackGiving: NextPage = () => {
-  const commentInputRef = useRef(null);
+  const commentInputRef = useRef<HTMLInputElement>();
+
   const router = useRouter();
   const post = router.query;
   const [approval, setApproval] = useState(false);
   const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!commentInputRef?.current.value) {
+    if (!commentInputRef?.current?.value) {
       return;
     }
 
@@ -30,7 +31,7 @@ const FeedbackGiving: NextPage = () => {
           <figure className="max-w-lg">
             <img
               className="max-w-full h-auto rounded-lg"
-              src={post.fileUrl}
+              src={post.fileUrl as string}
               alt="image description"
             />
             <figcaption className="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
@@ -44,7 +45,7 @@ const FeedbackGiving: NextPage = () => {
                 Your comment
               </label>
               <textarea
-                ref={commentInputRef}
+                ref={commentInputRef as any}
                 id="comment"
                 rows={6}
                 className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
@@ -52,7 +53,7 @@ const FeedbackGiving: NextPage = () => {
                 required
               ></textarea>
             </div>
-            <button onClick={handleCommentSubmit} type="submit">
+            <button onClick={() => handleCommentSubmit} type="submit">
               Post comment
             </button>
           </form>
