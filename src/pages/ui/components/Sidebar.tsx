@@ -3,7 +3,7 @@ import { UserContext } from "../../../../context";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const Sidebar = ({ children }) => {
+const Sidebar = ({ children }: { children: React.ReactNode }) => {
   const user = useContext(UserContext);
   const router = useRouter();
 
@@ -46,7 +46,8 @@ const Sidebar = ({ children }) => {
                 <a
                   aria-label="dashboard"
                   className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl ${
-                    router.asPath === "/dashboard" &&
+                    (router.asPath === "/dashboard" ||
+                      router.asPath === "/feedbackGiving") &&
                     "text-white bg-gradient-to-r from-blue-600 to-blue-400 "
                   }`}
                 >
@@ -129,7 +130,7 @@ const Sidebar = ({ children }) => {
                     />
                   </svg>
                   <span className="group-hover:text-gray-700">
-                    Your FeedBacks
+                    Your FeedBack
                   </span>
                 </a>
               </Link>

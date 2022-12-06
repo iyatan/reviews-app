@@ -6,6 +6,7 @@ import MidSection from "./ui/components/MidSection";
 import Benefits from "./ui/components/Benefits";
 import { useContext } from "react";
 import { UserContext } from "../../context";
+import { realTimeDb } from "../../firebase/clientApp";
 
 const Home: NextPage = () => {
   return (

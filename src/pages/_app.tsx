@@ -6,8 +6,6 @@ import { ReactNode, useEffect, useState } from "react";
 import Loader from "./ui/components/Loader";
 import Sidebar from "./ui/components/Sidebar";
 import Dashboard from "./dashboard";
-import FileUpload from "./fileUpload";
-import FeedbackReport from "./feedbackReport";
 
 export const Loading = () => {
   const router = useRouter();
@@ -40,8 +38,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <Sidebar>
           <Dashboard />
-          <FileUpload />
-          <FeedbackReport />
         </Sidebar>
       </AuthProvider>
     </>
