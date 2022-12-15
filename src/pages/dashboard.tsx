@@ -1,29 +1,40 @@
 import { NextPage } from "next";
-
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import { useUserData } from "../../hooks/useUserData";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Nav from "./ui/components/Nav";
-
-import router from "next/router";
 import Sidebar from "./ui/components/Sidebar";
 import React from "react";
 import DashboardCard from "./ui/components/DashBoardCard";
 import { realTimeDb } from "../../firebase/clientApp";
 import { UserContext } from "../../context";
 
-const Dashboard: NextPage = ({ posts }) => {
-  const { currentUser } = useContext(UserContext);
+interface Post {
+  id: string;
+  message: string;
+  timestamp: number;
+  user: {
+    id: string;
+    name: string;
+    profilePicture: string;
+  };
+}
 
+interface Props {
+  posts: Post[];
+}
+
+const Dashboard: NextPage<Props> = ({ posts }) => {
+  const { currentUser } = useContext(UserContext);
+  const router = useRouter();
   useEffect(() => {
     if (!currentUser) {
       router.push("/");
-    } else {
-      router.push("/dashboard");
     }
-  }, [currentUser]);
+  }, [router]);
+
   return (
     <div className="flex flex-col">
       <Nav />
@@ -31,21 +42,20 @@ const Dashboard: NextPage = ({ posts }) => {
         <div>
           <Sidebar children={undefined} />
         </div>
-        <div className="flex flex-col min-w-[78%]">
+        <div className="flex flex-col max-w-[78%]">
           {posts.map((post) => (
-            <DashboardCard post={post} />
+            <DashboardCard key={post.id} post={post} />
           ))}
         </div>
       </div>
     </div>
   );
 };
+
 export default Dashboard;
 
 export async function getServerSideProps() {
-  const docs = [];
-
-  // get list of wall posts from Firebase.
+  const docs: Post[] = [];
 
   const postRef = await realTimeDb.ref("posts");
   const snapshot = await postRef.once("value");
@@ -58,40 +68,12 @@ export async function getServerSideProps() {
       docs.push(posts[key]);
     });
   }
-  // pass posts to Home component as props.
+
   return {
     props: {
       posts: docs.sort((a, b) => {
-        return new Date(b.timestamp) - new Date(a.timestamp);
+        return (new Date(b.timestamp) as any) - (new Date(a.timestamp) as any);
       }),
     },
   };
 }
-
-// export async function getStaticProps() {
-//   const docs = [];
-
-//   // get list of wall posts from Firebase.
-//   const postRef = await realTimeDb.ref("posts");
-//   const snapshot = await postRef.once("value");
-
-//   const posts = snapshot.val();
-
-//   if (posts && posts.length !== 0) {
-//     const keys = Object.keys(posts);
-//     keys.forEach((key) => {
-//       docs.push(posts[key]);
-//     });
-//   }
-//   const notFound = posts[0] ? false : true;
-//   // pass posts to Home component as props.
-//   return {
-//     props: {
-//       posts: docs.sort((a, b) => {
-//         return new Date(b.timestamp) - new Date(a.timestamp);
-//       }),
-//     },
-//     revalidate: 10, // In seconds
-//     notFound,
-//   };
-// }

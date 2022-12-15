@@ -6,39 +6,35 @@ import { ReactNode, useEffect, useState } from "react";
 import Loader from "./ui/components/Loader";
 import Sidebar from "./ui/components/Sidebar";
 import Dashboard from "./dashboard";
+import React from "react";
 
-export const Loading = () => {
+function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
+  const showSideBar = router.pathname === "/" ? false : true;
+  const [pageLoading, setPageLoading] = useState<boolean>(false);
   useEffect(() => {
-    const handleStart = (url: any) => url !== router.asPath && setLoading(true);
-    const handleComplete = (url: any) =>
-      url === router.asPath &&
-      setTimeout(() => {
-        setLoading(false);
-      }, 5000);
+    const handleStart = () => {
+      setPageLoading(true);
+    };
+
+    const handleComplete = () => {
+      setPageLoading(false);
+    };
 
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleComplete);
     router.events.on("routeChangeError", handleComplete);
+  }, [router]);
 
-    return () => {
-      router.events.off("routeChangeStart", handleStart);
-      router.events.off("routeChangeComplete", handleComplete);
-      router.events.off("routeChangeError", handleComplete);
-    };
-  });
-  return loading && <Loader />;
-};
-function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <AuthProvider>
-        <Component {...pageProps} />
-        <Sidebar>
-          <Dashboard />
-        </Sidebar>
+        {pageLoading ? <Loader /> : <Component {...pageProps} />}
+        {showSideBar && (
+          <Sidebar>
+            <Dashboard posts={[]} />
+          </Sidebar>
+        )}
       </AuthProvider>
     </>
   );

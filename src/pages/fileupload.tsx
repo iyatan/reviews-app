@@ -1,19 +1,29 @@
 import { NextPage } from "next";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { realTimeDb, storage } from "../../firebase/clientApp";
 import { v4 } from "uuid";
 import { UserContext } from "../../context";
 import HiCheck from "./ui/components/HiCheck";
+import { occupation } from "./api/occupations";
+import { useRouter } from "next/router";
 
 const FileUpload: NextPage = () => {
   const { currentUser, posts, setPosts } = useContext(UserContext);
 
   const [fileUpload, setFileUpload] = useState(null);
+  const occupations = occupation;
 
   const inputRef = useRef(null);
   const filepickerRef = useRef(null);
   const professionRef = useRef(null);
   const [approval, setApproval] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/");
+    }
+  }, [router]);
 
   const addDocument = (e: any) => {
     const reader = new FileReader();
@@ -28,7 +38,7 @@ const FileUpload: NextPage = () => {
   const updatePosts = (post) => {
     if (post) {
       const updatedPosts = [...posts, post];
-      setPosts(updatedPosts);
+      setPosts(updatedPosts as any);
     }
   };
 
@@ -81,7 +91,7 @@ const FileUpload: NextPage = () => {
       {approval ? (
         <HiCheck />
       ) : (
-        <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
+        <div className="mx-auto bg-white rounded-lg overflow-hidden max-w-2xl">
           <div className="md:flex">
             <div className="w-full px-4 py-6 ">
               <div className="mb-1">
@@ -90,11 +100,10 @@ const FileUpload: NextPage = () => {
                   ref={professionRef}
                   className="h-12 px-3 w-full border-blue-400 border-2 rounded focus:outline-none focus:border-blue-600"
                 >
-                  <option>Choose Your Job</option>
-                  <option>Software Engineer</option>
-                  <option>Analyst</option>
-                  <option>Program Manager</option>
-                  <option>Designer</option>
+                  {occupations.map((occupation) => {
+                    return <option>{occupation}</option>;
+                  })}
+                  {"}"}
                 </select>
               </div>
 

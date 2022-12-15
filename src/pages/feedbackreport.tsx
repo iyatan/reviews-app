@@ -43,8 +43,8 @@ const FeedbackReport: NextPage = () => {
   }, []);
 
   return (
-    <div className="flex h-full flex-col justify-center items-center">
-      <div className="w-full max-w-md p-4 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div className="flex h-full  flex-col justify-center items-center bg-gray-300 px-2">
+      <div className="w-full  p-4 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700  max-w-2xl">
         <div className="flex items-center justify-between mb-4">
           <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
             Latest Feedback

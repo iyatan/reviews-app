@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { realTimeDb } from "../../firebase/clientApp";
 import HiCheck from "./ui/components/HiCheck";
@@ -9,6 +9,7 @@ const FeedbackGiving: NextPage = () => {
 
   const router = useRouter();
   const post = router.query;
+
   const [approval, setApproval] = useState(false);
   const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +40,7 @@ const FeedbackGiving: NextPage = () => {
             </figcaption>
           </figure>
 
-          <form className="mb-6">
+          <form className="mb-6 text-right m-2">
             <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
               <label htmlFor="comment" className="sr-only">
                 Your comment
@@ -53,7 +54,11 @@ const FeedbackGiving: NextPage = () => {
                 required
               ></textarea>
             </div>
-            <button onClick={() => handleCommentSubmit} type="submit">
+            <button
+              className="ml-2 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700"
+              onClick={() => handleCommentSubmit}
+              type="submit"
+            >
               Post comment
             </button>
           </form>

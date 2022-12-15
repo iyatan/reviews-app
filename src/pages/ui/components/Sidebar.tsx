@@ -46,8 +46,8 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                 <a
                   aria-label="dashboard"
                   className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl ${
-                    (router.asPath === "/dashboard" ||
-                      router.asPath === "/feedbackGiving") &&
+                    (router.asPath.includes("dashboard") ||
+                      router.asPath.includes("feedbackGiving")) &&
                     "text-white bg-gradient-to-r from-blue-600 to-blue-400 "
                   }`}
                 >
