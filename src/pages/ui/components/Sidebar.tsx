@@ -2,10 +2,15 @@ import { useContext } from "react";
 import { UserContext } from "../../../../context";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { auth } from "../../../../firebase/clientApp";
 
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
   const user = useContext(UserContext);
   const router = useRouter();
+  const handleSignOut = () => {
+    auth.signOut();
+    router.push("/");
+  };
 
   const menuItems = [
     {
@@ -154,7 +159,9 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
-            <span className="group-hover:text-gray-700">Logout</span>
+            <span className="group-hover:text-gray-700" onClick={handleSignOut}>
+              Logout
+            </span>
           </button>
         </div>
       </aside>

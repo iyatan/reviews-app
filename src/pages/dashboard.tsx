@@ -42,7 +42,7 @@ const Dashboard: NextPage<Props> = ({ posts }) => {
         <div>
           <Sidebar children={undefined} />
         </div>
-        <div className="flex flex-col max-w-[78%]">
+        <div className="flex flex-col w-9/12">
           {posts.map((post) => (
             <DashboardCard key={post.id} post={post} />
           ))}
