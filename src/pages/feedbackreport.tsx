@@ -5,11 +5,36 @@ import { realTimeDb, storage } from "../../firebase/clientApp";
 import Sidebar from "./ui/components/Sidebar";
 
 const FeedbackReport: NextPage = () => {
+  const { currentUser } = useContext(UserContext);
   const [userComments, setUserComments] = useState<{ [key: string]: string[] }>(
     {}
   );
 
-  const { currentUser } = useContext(UserContext);
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+
+    const userData = realTimeDb
+      .ref("posts")
+      .orderByChild("author")
+      .equalTo(currentUser.uid);
+
+    const handleData = (snapshot) => {
+      const newUserComments = {};
+      snapshot.forEach((childSnapshot) => {
+        const post = childSnapshot.val();
+        if (post && post.fileUrl && post.comments) {
+          newUserComments[post.fileUrl] = Object.values(post.comments);
+        }
+      });
+      setUserComments(newUserComments);
+    };
+    userData.on("value", handleData);
+    return () => {
+      userData.off("value", handleData);
+    };
+  }, [currentUser]);
 
   if (!currentUser) {
     return (
@@ -22,26 +47,6 @@ const FeedbackReport: NextPage = () => {
       </div>
     );
   }
-
-  const userData = realTimeDb
-    .ref("posts")
-    .orderByChild("author")
-    .equalTo(currentUser.uid);
-
-  useEffect(() => {
-    userData.on("value", (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const post = childSnapshot.val();
-
-        if (post && post.fileUrl && post.comments) {
-          setUserComments({
-            ...userComments,
-            [post.fileUrl]: Object.values(post.comments),
-          });
-        }
-      });
-    });
-  }, []);
 
   return (
     <div className="flex flex-col">

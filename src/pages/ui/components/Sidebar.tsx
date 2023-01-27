@@ -3,6 +3,7 @@ import { UserContext } from "../../../../context";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { auth } from "../../../../firebase/clientApp";
+import ScoreBoard from "./ScoreBoard";
 
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
   const user = useContext(UserContext);
@@ -141,6 +142,9 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               </Link>
             </li>
           </ul>
+        </div>
+        <div>
+          <ScoreBoard />
         </div>
 
         <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t">

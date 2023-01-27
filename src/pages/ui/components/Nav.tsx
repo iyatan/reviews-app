@@ -9,11 +9,6 @@ const Nav = () => {
   const [showModal, setShowModal] = useState(false);
   const user = useContext(UserContext);
 
-  const handleSignOut = () => {
-    auth.signOut();
-    router.push("/");
-  };
-
   return (
     <div>
       {!user.currentUser && (

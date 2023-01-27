@@ -21,12 +21,6 @@ const FileUpload: NextPage = () => {
   const [approval, setApproval] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!currentUser) {
-      router.push("/");
-    }
-  }, [router]);
-
   const addDocument = (e: any) => {
     const reader = new FileReader();
     if (e.target.files[0]) {
@@ -92,21 +86,23 @@ const FileUpload: NextPage = () => {
     <div className="flex flex-col">
       <div className="flex justify-around h-screen ">
         <div className="flex flex-col w-9/12 ">
-          <div className="flex self-center justify-center h-5/6 p-6 m-20 w-5/6 ml-96 bg-white rounded-2xl border border-gray-200 shadow-md  ">
+          <div className="flex self-center justify-center h-5/6  pt-0 m-20 w-5/6 ml-96 bg-white rounded-2xl border border-gray-200 shadow-md  ">
             {approval ? (
               <HiCheck />
             ) : (
-              <div className="w-full self-center">
+              <div className="w-full ">
                 <div>
-                  <h1 className="">
+                  <h1 className="border-b-2 px-10 py-5 text-xl  ">
                     <b>Add Documents</b>
                   </h1>
                 </div>
-                <div className="md:flex">
+                <div className="md:flex p-6  self-center">
                   <div className="w-full px-4 py-6 ">
-                    <div className="flex justify-between ">
-                      <div className="mb-1  ">
-                        <span className="text-sm">Profession</span>
+                    <div className="flex justify-between my-2">
+                      <div className="mb-1 mr-1 w-3/6  ">
+                        <span className="text-sm  text-gray-500">
+                          Profession
+                        </span>
                         <select
                           ref={professionRef}
                           className="h-12  px-3 w-full border-2 rounded focus:outline-none"
@@ -118,7 +114,9 @@ const FileUpload: NextPage = () => {
                         </select>
                       </div>
                       <div className="mb-1 w-6/12">
-                        <span className="text-sm">Type of document</span>
+                        <span className="text-sm text-gray-500">
+                          Type of document
+                        </span>
                         <select
                           ref={typeOfDocumentRef}
                           className="h-12  px-3 w-full border-2 rounded focus:outline-none"
@@ -129,8 +127,8 @@ const FileUpload: NextPage = () => {
                       </div>
                     </div>
 
-                    <div className="mb-1">
-                      <span className="text-sm">
+                    <div className="my-2">
+                      <span className="text-sm text-gray-500">
                         Describe What You need Help With
                       </span>
                       <textarea
@@ -139,37 +137,52 @@ const FileUpload: NextPage = () => {
                       ></textarea>
                     </div>
 
-                    <div className="mb-1"></div>
+                    <div className="my-2"></div>
 
-                    <div className="mb-1">
-                      <span>
-                        Attachments (We only support images at this moment)
-                      </span>
-
-                      <div className="relative border-dotted h-40 rounded-lg  border-2 bg-gray-100 flex justify-center items-center">
-                        <div className="absolute">
-                          <div className="flex flex-col items-center">
-                            {" "}
-                            <i className="fa fa-folder-open fa-3x text-blue-700"></i>{" "}
-                            <span className="block text-gray-400 font-normal">
-                              {fileUpload
-                                ? "Attached"
-                                : "Attach you files here"}
+                    <div className="flex my-2 items-center justify-center w-full">
+                      <label
+                        htmlFor="dropzone-file"
+                        className="flex flex-col items-center justify-center w-full h-1/6 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800  hover:bg-gray-100 0 dark:hover:border-gray-500 "
+                      >
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                          <svg
+                            aria-hidden="true"
+                            className="w-10 h-10 mb-3 text-gray-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                            ></path>
+                          </svg>
+                          <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                            <span className="font-semibold">
+                              {fileUpload ? "Attached" : "Click to upload"}
                             </span>{" "}
-                          </div>
-                        </div>{" "}
+                            {fileUpload ? "" : "or drag and drop"}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            SVG, PNG, JPG, GIF up to 10MB
+                          </p>
+                        </div>
                         <input
                           // onClick={() => filepickerRef.current.click()}
                           onChange={addDocument}
                           ref={filepickerRef}
                           type="file"
-                          className="h-full w-full opacity-0"
                           name=""
+                          id="dropzone-file"
+                          className="hidden"
                         />
-                      </div>
+                      </label>
                     </div>
 
-                    <div className="mt-3 text-right">
+                    <div className="my-3 text-right">
                       <button
                         onClick={handleSubmitInfo}
                         className="h-10 w-full bg-blue-600 rounded text-white hover:bg-blue-700"

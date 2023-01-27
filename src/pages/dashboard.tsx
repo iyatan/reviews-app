@@ -10,6 +10,7 @@ import React from "react";
 import DashboardCard from "./ui/components/DashBoardCard";
 import { realTimeDb } from "../../firebase/clientApp";
 import { UserContext } from "../../context";
+import Loader from "./ui/components/Loader";
 
 interface Post {
   id: string;
@@ -29,11 +30,20 @@ interface Props {
 const Dashboard: NextPage<Props> = ({ posts }) => {
   const { currentUser } = useContext(UserContext);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    if (!currentUser) {
-      router.push("/");
-    }
-  }, [router]);
+    setTimeout(() => {
+      if (!currentUser) {
+        router.push("/");
+      } else {
+        setIsLoading(false);
+      }
+    }, 500);
+  }, [router, currentUser]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex flex-col">
@@ -54,7 +64,7 @@ const Dashboard: NextPage<Props> = ({ posts }) => {
 
 export default Dashboard;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: any) {
   const docs: Post[] = [];
 
   const postRef = await realTimeDb.ref("posts");
