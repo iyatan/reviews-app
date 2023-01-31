@@ -65,7 +65,23 @@ const SignIn = (props: AuthProps) => {
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
               Sign in to our platform
             </h3>
-            <button onClick={signInWithGoogle}>sign in with google</button>
+
+            <button
+              aria-label="Continue with google"
+              role="button"
+              className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-black border-white flex items-center w-full mt-5"
+              onClick={signInWithGoogle}
+            >
+              <img
+                height={30}
+                width={30}
+                src="https://www.svgrepo.com/show/452216/google.svg"
+                alt="google"
+              />
+              <p className="text-base text-black font-medium ml-4">
+                Continue with Google
+              </p>
+            </button>
           </div>
         </div>
       </div>
