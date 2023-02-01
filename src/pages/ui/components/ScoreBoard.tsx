@@ -1,12 +1,31 @@
+import { useContext, useState } from "react";
+import { UserContext } from "../../../../context";
+import { realTimeDb } from "../../../../firebase/clientApp";
+
 const ScoreBoard = () => {
+  const { currentUser } = useContext(UserContext);
+  const [points, setPoints] = useState(0);
+  const usersRef = realTimeDb.ref("users/" + currentUser?.uid + "/points");
+  usersRef.once("value", (snapshot) => {
+    setPoints(snapshot.val());
+  });
+
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <div className="flex flex-col items-center pb-10">
-        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          Score
-        </h5>
-        <h1 className=" text-lg text-gray-500 dark:text-gray-400">0</h1>
+    <div className=" min-h-[20%] w-full max-w-sm bg-[#3372EE] text-white border border-gray-200 rounded-xl shadow p-7 ">
+      <div className="flex justify-between ">
+        <h5 className="mb-1 text-xl font-medium  ">Points</h5>
+        <h1 className=" text-lg "> {points}</h1>
       </div>
+      <div className="mt-5">
+        This is the number of reviews you can receive. Review more to earn more
+        points
+      </div>
+      <button
+        type="button"
+        className="py-2.5 px-5 mt-5  text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200  hover:text-blue-700 focus:z-10 focus:ring-4  "
+      >
+        Learn more
+      </button>
     </div>
   );
 };

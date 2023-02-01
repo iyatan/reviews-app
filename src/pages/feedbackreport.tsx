@@ -63,27 +63,32 @@ const FeedbackReport: NextPage = () => {
               </h5>
             </div>
             <div className="flow-root">
-              {Object.entries(userComments).map(([fileUrl, authorComments]) => (
-                <div>
-                  <h6 className="text-lg font-bold leading-none text-gray-900 dark:text-white">
-                    <img src={fileUrl} />
-                  </h6>
-                  <ul
-                    role="list"
-                    className="divide-y divide-gray-200 dark:divide-gray-700"
-                  >
-                    {authorComments.map((comment) => (
-                      <div className="flex rounded-xl bg-white p-4 col-span-12 mt-1">
-                        <div className="ml-4 w-full">
-                          <div className="mt-4">
-                            <p>{comment}</p>
+              {Object.entries(userComments).map(
+                ([fileUrl, authorComments], index) => (
+                  <div key={index}>
+                    <h6 className="text-lg font-bold leading-none text-gray-900 dark:text-white">
+                      <img src={fileUrl} />
+                    </h6>
+                    <ul
+                      role="list"
+                      className="divide-y divide-gray-200 dark:divide-gray-700"
+                    >
+                      {authorComments.map((comment, i) => (
+                        <div
+                          key={i}
+                          className="flex rounded-xl bg-white p-4 col-span-12 mt-1"
+                        >
+                          <div className="ml-4 w-full">
+                            <div className="mt-4">
+                              <p>{comment}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                      ))}
+                    </ul>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>

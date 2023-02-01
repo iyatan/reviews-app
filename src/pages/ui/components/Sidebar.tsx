@@ -95,9 +95,9 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                   >
                     <path
                       className="fill-current text-gray-300 group-hover:text-blue-300"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                     <path
                       className="fill-current text-gray-600 group-hover:text-blue-600"
@@ -126,9 +126,9 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                   >
                     <path
                       className="fill-current text-gray-600 group-hover:text-blue-600"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                     <path
                       className="fill-current text-gray-300 group-hover:text-blue-300"
@@ -143,7 +143,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
             </li>
           </ul>
         </div>
-        <div>
+        <div className="m-5">
           <ScoreBoard />
         </div>
 
@@ -157,9 +157,9 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
