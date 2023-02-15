@@ -6,7 +6,7 @@ import { UserContext } from "../../context";
 import HiCheck from "./ui/components/HiCheck";
 import { occupation } from "./api/occupations";
 import { useRouter } from "next/router";
-import Sidebar from "./ui/components/Sidebar";
+import Sidebar from "./ui/components/DashBoard/Sidebar";
 import StatusMessage from "./ui/components/StatusMessage";
 
 const FileUpload: NextPage = () => {
@@ -20,6 +20,7 @@ const FileUpload: NextPage = () => {
   const filepickerRef = useRef(null);
   const professionRef = useRef(null);
   const [approval, setApproval] = useState(false);
+  const [fileName, setFileName] = useState("");
   const router = useRouter();
 
   const [points, setPoints] = useState(0);
@@ -30,6 +31,7 @@ const FileUpload: NextPage = () => {
 
   const addDocument = (e: any) => {
     const reader = new FileReader();
+    setFileName(e.target.files[0].name);
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -48,6 +50,26 @@ const FileUpload: NextPage = () => {
   const handleSubmitInfo = (e) => {
     e.preventDefault();
     if (!inputRef.current.value) return;
+
+    const file = filepickerRef.current.files[0];
+    const fileSize = file.size / 1024 / 1024;
+    if (fileSize > 5) {
+      alert("File size must be less than 5 MB.");
+      return;
+    }
+    const fileType = file.type;
+    if (
+      !(
+        fileType === "image/svg+xml" ||
+        fileType === "image/png" ||
+        fileType === "image/jpeg" ||
+        fileType === "image/gif"
+      )
+    ) {
+      alert("File type must be SVG, PNG, JPG, or GIF.");
+      return;
+    }
+
     const postId = v4();
     const postPayload = {
       id: postId,
@@ -89,7 +111,7 @@ const FileUpload: NextPage = () => {
     professionRef.current.value = "";
     setApproval(true);
   };
-  if (points < 10) {
+  if (points < 1) {
     return (
       <div>
         <StatusMessage message=" You do not have enought points to get feedback at this moment. Please click  to the  dashboard give a few feedback " />
@@ -176,12 +198,14 @@ const FileUpload: NextPage = () => {
                           </svg>
                           <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                             <span className="font-semibold">
-                              {fileUpload ? "Attached" : "Click to upload"}
+                              {fileUpload
+                                ? `${fileName} Attached`
+                                : "Click to upload"}
                             </span>{" "}
                             {fileUpload ? "" : "or drag and drop"}
                           </p>
                           <p className="text-xs text-gray-500 dark:text-gray-400">
-                            SVG, PNG, JPG, GIF up to 10MB
+                            SVG, PNG, JPG, GIF up to 5MB
                           </p>
                         </div>
                         <input

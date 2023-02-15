@@ -1,7 +1,7 @@
-const Benefits = () => (
+const HowItWorks = () => (
   <div className="container my-10 px-6 mx-auto">
     <section id="why" className="mb-32 text-gray-800 text-center">
-      <h2 className="text-3xl font-bold mb-20">Why use this?</h2>
+      <h2 className="text-3xl font-bold mb-20">How Does Tt Work?</h2>
 
       <div className="grid lg:gap-x-12 lg:grid-cols-3">
         <div className="mb-12 lg:mb-0">
@@ -21,11 +21,14 @@ const Benefits = () => (
               </div>
             </div>
             <div className="p-6">
-              <h3 className="text-2xl font-bold text-blue-600 mb-4">Free</h3>
+              <h3 className="text-2xl font-bold text-blue-600 mb-4">
+                {" "}
+                Give Feedback
+              </h3>
               <h5 className="text-lg font-medium mb-4"></h5>
               <p className="text-gray-500">
-                The platform is free for use, All you have to do is provide
-                feedback and get feedback
+                Help others improve their resumes by providing thoughtful
+                feedback and earn points.
               </p>
             </div>
           </div>
@@ -49,12 +52,11 @@ const Benefits = () => (
             </div>
             <div className="p-6">
               <h3 className="text-2xl font-bold text-blue-600 mb-4">
-                Real People
+                Upload Your Resume
               </h3>
               <h5 className="text-lg font-medium mb-4"></h5>
               <p className="text-gray-500">
-                Unlike many other platforms, You get real people to give you
-                feeback
+                Enter our timeline by uploading your resume for review.
               </p>
             </div>
           </div>
@@ -78,11 +80,12 @@ const Benefits = () => (
             </div>
             <div className="p-6">
               <h3 className="text-2xl font-bold text-blue-600 mb-4">
-                Real Time
+                Receive Feedback.
               </h3>
               <h5 className="text-lg font-medium mb-4"></h5>
               <p className="text-gray-500">
-                You can get access to your documents and feedback in real time
+                Get a comprehensive review from multiple reviewers to improve
+                your chances of success.
               </p>
             </div>
           </div>
@@ -91,4 +94,4 @@ const Benefits = () => (
     </section>
   </div>
 );
-export default Benefits;
+export default HowItWorks;

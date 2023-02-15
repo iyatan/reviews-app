@@ -1,4 +1,8 @@
+import { useState } from "react";
+import SignIn from "./SignIn";
 const Footer = () => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-black">
       <div className="md:w-2/3 w-full px-4 text-white flex flex-col">
@@ -10,9 +14,12 @@ const Footer = () => {
             Sign up today and start getting authentic feedbacks
           </p>
           <div className="w-44 pt-6 md:pt-0">
-            <a className="bg-blue-600 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center">
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-blue-600 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center"
+            >
               Get Started
-            </a>
+            </button>
           </div>
         </div>
         <div className="flex flex-col">
@@ -29,6 +36,12 @@ const Footer = () => {
           </p>
         </div>
       </div>
+
+      <SignIn
+        isVisible={showModal}
+        loginIn={false}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

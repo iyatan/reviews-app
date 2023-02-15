@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import Nav from "../pages/ui/components/Nav";
-import Footer from "../pages/ui/components/Footer";
-import HomepageMain from "./ui/components/HomepageMain";
-import MidSection from "./ui/components/MidSection";
-import Benefits from "./ui/components/Benefits";
+import Nav from "./ui/components/HomePage/Nav";
+import Footer from "./ui/components/HomePage/Footer";
+import HeroSection from "./ui/components/HomePage/HeroSection";
+import Features from "./ui/components/HomePage/Features";
+import HowItWorks from "./ui/components/HomePage/HowItWorks";
 import { useContext } from "react";
 import { UserContext } from "../../context";
 import { useRouter } from "next/router";
@@ -17,9 +17,9 @@ const Home: NextPage = () => {
   return (
     <div className="flex flex-col">
       <Nav />
-      <HomepageMain />
-      <Benefits />
-      <MidSection />
+      <HeroSection />
+      <HowItWorks />
+      <Features />
       <Footer />
     </div>
   );

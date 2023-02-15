@@ -3,8 +3,8 @@ import type { AppProps } from "next/app";
 import { AuthProvider, UserContext } from "../../context";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
-import Loader from "./ui/components/Loader";
-import Sidebar from "./ui/components/Sidebar";
+import Loader from "./ui/shared/Loader";
+import Sidebar from "./ui/components/DashBoard/Sidebar";
 import Dashboard from "./dashboard";
 import React from "react";
 

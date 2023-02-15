@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../../../../context";
-import { realTimeDb } from "../../../../firebase/clientApp";
+import { UserContext } from "../../../../../context";
+import { realTimeDb } from "../../../../../firebase/clientApp";
 
 const ScoreBoard = () => {
   const { currentUser } = useContext(UserContext);

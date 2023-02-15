@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NextPage } from "next";
 import { UserContext } from "../../context";
 import { realTimeDb, storage } from "../../firebase/clientApp";
-import Sidebar from "./ui/components/Sidebar";
+import Sidebar from "./ui/components/DashBoard/Sidebar";
 
 const FeedbackReport: NextPage = () => {
   const { currentUser } = useContext(UserContext);

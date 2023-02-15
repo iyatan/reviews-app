@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { auth, googleAuthProvider } from "../../../../firebase/clientApp";
+import { auth, googleAuthProvider } from "../../../../../firebase/clientApp";
 
-import { UserContext } from "../../../../context";
+import { UserContext } from "../../../../../context";
 import router from "next/router";
-import { useUserData } from "../../../../hooks/useUserData";
+import { useUserData } from "../../../../../hooks/useUserData";
 
 type AuthProps = {
   isVisible: boolean;

@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { realTimeDb } from "../../firebase/clientApp";
 import HiCheck from "./ui/components/HiCheck";
-import Sidebar from "./ui/components/Sidebar";
+import Sidebar from "./ui/components/DashBoard/Sidebar";
 import { UserContext } from "../../context";
 
 const FeedbackGiving: NextPage = () => {

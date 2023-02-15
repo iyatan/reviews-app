@@ -4,13 +4,13 @@ import "firebase/compat/auth";
 import { useUserData } from "../../hooks/useUserData";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Nav from "./ui/components/Nav";
-import Sidebar from "./ui/components/Sidebar";
+import Nav from "./ui/components/HomePage/Nav";
+import Sidebar from "./ui/components/DashBoard/Sidebar";
 import React from "react";
-import DashboardCard from "./ui/components/DashBoardCard";
+import DashboardCard from "./ui/components/DashBoard/DashBoardCard";
 import { realTimeDb } from "../../firebase/clientApp";
 import { UserContext } from "../../context";
-import Loader from "./ui/components/Loader";
+import Loader from "./ui/shared/Loader";
 
 interface Post {
   id: string;
@@ -79,11 +79,35 @@ export async function getServerSideProps(context: any) {
     });
   }
 
+  // Sort the posts based on the timestamp
+  docs.sort(
+    (a, b) => (new Date(b.timestamp) as any) - (new Date(a.timestamp) as any)
+  );
+
+  // Get the points of each author
+  const authorPoints: { [authorId: string]: number } = {};
+  docs.forEach((post) => {
+    const authorId = post.author;
+
+    if (!authorPoints[authorId]) {
+      authorPoints[authorId] = 0;
+    }
+    authorPoints[authorId] += post.points;
+  });
+
+  // Sort the posts based on the number of points the author has
+  docs.sort((a, b) => {
+    const pointsA = authorPoints[a.author];
+    const pointsB = authorPoints[b.author];
+    if (pointsA === pointsB) {
+      return (new Date(b.timestamp) as any) - (new Date(a.timestamp) as any);
+    }
+    return pointsB - pointsA;
+  });
+
   return {
     props: {
-      posts: docs.sort((a, b) => {
-        return (new Date(b.timestamp) as any) - (new Date(a.timestamp) as any);
-      }),
+      posts: docs,
     },
   };
 }
