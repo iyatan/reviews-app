@@ -13,9 +13,12 @@ import { UserContext } from "../../context";
 import Loader from "./ui/shared/Loader";
 
 interface Post {
+  author: any;
+  points: number;
   id: string;
   message: string;
   timestamp: number;
+  profession: string;
   user: {
     id: string;
     name: string;
@@ -29,8 +32,11 @@ interface Props {
 
 const Dashboard: NextPage<Props> = ({ posts }) => {
   const { currentUser } = useContext(UserContext);
+
   const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
       if (!currentUser) {
@@ -47,10 +53,9 @@ const Dashboard: NextPage<Props> = ({ posts }) => {
 
   return (
     <div className="flex flex-col">
-      <Nav />
       <div className="flex justify-between">
         <div>
-          <Sidebar children={undefined} />
+          <Sidebar />
         </div>
         <div className="flex flex-col w-9/12">
           {posts.map((post) => (

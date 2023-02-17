@@ -1,24 +1,23 @@
 import { NextPage } from "next";
 import { useContext, useEffect, useRef, useState } from "react";
 import { realTimeDb, storage } from "../../firebase/clientApp";
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { UserContext } from "../../context";
-import HiCheck from "./ui/components/HiCheck";
+import HiCheck from "./ui/shared/HiCheck";
 import { occupation } from "./api/occupations";
 import { useRouter } from "next/router";
-import Sidebar from "./ui/components/DashBoard/Sidebar";
-import StatusMessage from "./ui/components/StatusMessage";
+import StatusMessage from "./ui/shared/StatusMessage";
 
 const FileUpload: NextPage = () => {
   const { currentUser, posts, setPosts } = useContext(UserContext);
 
-  const [fileUpload, setFileUpload] = useState(null);
+  const [fileUpload, setFileUpload] = useState<string | ArrayBuffer | null>("");
   const occupations = occupation;
   const typeOfDocumentRef = useRef(null);
 
-  const inputRef = useRef(null);
-  const filepickerRef = useRef(null);
-  const professionRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const filepickerRef = useRef<HTMLInputElement>(null);
+  const professionRef = useRef<HTMLSelectElement>(null);
   const [approval, setApproval] = useState(false);
   const [fileName, setFileName] = useState("");
   const router = useRouter();
@@ -36,28 +35,29 @@ const FileUpload: NextPage = () => {
       reader.readAsDataURL(e.target.files[0]);
     }
     reader.onload = (readerEvent) => {
-      setFileUpload(readerEvent.target?.result);
+      setFileUpload(readerEvent.target?.result ?? "");
     };
   };
 
-  const updatePosts = (post) => {
+  const updatePosts = (post: any) => {
     if (post) {
       const updatedPosts = [...posts, post];
       setPosts(updatedPosts as any);
     }
   };
 
-  const handleSubmitInfo = (e) => {
+  const handleSubmitInfo = (e: any) => {
     e.preventDefault();
-    if (!inputRef.current.value) return;
+    if (!inputRef?.current?.value) return;
 
-    const file = filepickerRef.current.files[0];
-    const fileSize = file.size / 1024 / 1024;
+    const file = (filepickerRef.current as HTMLInputElement)?.files?.[0];
+
+    const fileSize = file ? file.size / 1024 / 1024 : 0;
     if (fileSize > 5) {
       alert("File size must be less than 5 MB.");
       return;
     }
-    const fileType = file.type;
+    const fileType = file ? file.type : "";
     if (
       !(
         fileType === "image/svg+xml" ||
@@ -70,12 +70,13 @@ const FileUpload: NextPage = () => {
       return;
     }
 
-    const postId = v4();
+    const postId = uuidv4();
     const postPayload = {
       id: postId,
-      message: inputRef.current.value,
-      profession: professionRef.current.value,
-      author: currentUser.uid,
+      message: inputRef?.current?.value,
+      profession: professionRef?.current?.value,
+      author: currentUser?.uid,
+      fileUrl: "",
     };
     realTimeDb
       .ref(`posts/${postId}`)
@@ -84,7 +85,7 @@ const FileUpload: NextPage = () => {
         if (fileUpload) {
           const uploadTask = storage
             .ref(`posts/${postId}`)
-            .putString(fileUpload, "data_url");
+            .putString(fileUpload.toString(), "data_url");
           // filepickerRef.current.value = null;
           setFileUpload(null);
           uploadTask.on(
@@ -108,7 +109,7 @@ const FileUpload: NextPage = () => {
         }
       });
     inputRef.current.value = "";
-    professionRef.current.value = "";
+    professionRef.current!.value = "";
     setApproval(true);
   };
   if (points < 1) {
@@ -143,8 +144,8 @@ const FileUpload: NextPage = () => {
                           ref={professionRef}
                           className="h-12  px-3 w-full border-2 rounded focus:outline-none"
                         >
-                          {occupations.map((occupation) => {
-                            return <option>{occupation}</option>;
+                          {occupations.map((occupation, index) => {
+                            return <option key={index}>{occupation}</option>;
                           })}
                           {"}"}
                         </select>

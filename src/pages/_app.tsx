@@ -31,9 +31,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AuthProvider>
         {pageLoading ? <Loader /> : <Component {...pageProps} />}
         {showSideBar && (
-          <Sidebar>
+          <div>
+            <Sidebar />
             <Dashboard posts={[]} />
-          </Sidebar>
+          </div>
         )}
       </AuthProvider>
     </>

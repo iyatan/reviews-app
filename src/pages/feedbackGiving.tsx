@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { realTimeDb } from "../../firebase/clientApp";
-import HiCheck from "./ui/components/HiCheck";
+import HiCheck from "./ui/shared/HiCheck";
 import Sidebar from "./ui/components/DashBoard/Sidebar";
 import { UserContext } from "../../context";
 
@@ -39,7 +39,7 @@ const FeedbackGiving: NextPage = () => {
     <div className="flex flex-col ">
       <div className="flex justify-between">
         <div>
-          <Sidebar children={undefined} />
+          <Sidebar />
         </div>
 
         <div className="flex flex-col w-9/12">

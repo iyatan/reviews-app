@@ -1,4 +1,8 @@
-const StatusMessage = ({ message }) => {
+interface StatusMessageProps {
+  message: string;
+}
+
+const StatusMessage = ({ message }: StatusMessageProps) => {
   return (
     <div className="flex justify-center items-center h-screen p-[25%]">
       <div className="flex flex-col justify-center items-center">

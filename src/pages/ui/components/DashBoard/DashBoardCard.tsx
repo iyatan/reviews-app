@@ -45,3 +45,16 @@ const DashboardCard = ({ post }: { post: Post }) => {
 };
 
 export default DashboardCard;
+
+export async function getStaticProps() {
+  const post: Post = {
+    profession: "Software Engineer",
+    message: "I am a software engineer with 5 years of experience",
+  };
+
+  return {
+    props: {
+      post,
+    },
+  };
+}

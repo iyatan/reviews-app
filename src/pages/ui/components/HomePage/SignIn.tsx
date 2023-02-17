@@ -12,19 +12,18 @@ type AuthProps = {
 };
 
 const SignIn = (props: AuthProps) => {
+  const user = useContext(UserContext);
+  useEffect(() => {
+    if (user.currentUser) {
+      router.push("/dashboard");
+    }
+  });
   if (!props.isVisible) return null;
   const handleClose = (e: any) => {
     if (e.target.id === "authentication-modal") {
       props.onClose();
     }
   };
-  const user = useContext(UserContext);
-
-  useEffect(() => {
-    if (user.currentUser) {
-      router.push("/dashboard");
-    }
-  });
 
   const signInWithGoogle = () => {
     auth.signInWithPopup(googleAuthProvider).then(() => {

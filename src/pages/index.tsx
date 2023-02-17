@@ -14,6 +14,7 @@ const Home: NextPage = () => {
   if (currentUser) {
     router.push("/dashboard");
   }
+
   return (
     <div className="flex flex-col">
       <Nav />

@@ -20,9 +20,9 @@ const FeedbackReport: NextPage = () => {
       .orderByChild("author")
       .equalTo(currentUser.uid);
 
-    const handleData = (snapshot) => {
-      const newUserComments = {};
-      snapshot.forEach((childSnapshot) => {
+    const handleData = (snapshot: any) => {
+      const newUserComments: any = {};
+      snapshot.forEach((childSnapshot: any) => {
         const post = childSnapshot.val();
         if (post && post.fileUrl && post.comments) {
           newUserComments[post.fileUrl] = Object.values(post.comments);
@@ -52,7 +52,7 @@ const FeedbackReport: NextPage = () => {
     <div className="flex flex-col">
       <div className="flex justify-between">
         <div>
-          <Sidebar children={undefined} />
+          <Sidebar />
         </div>
 
         <div className="flex flex-col w-9/12">
