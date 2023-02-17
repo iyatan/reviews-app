@@ -32,7 +32,7 @@ const Footer = () => {
           </div>
           <hr className="border-gray-600" />
           <p className="w-full text-center my-12 text-gray-600">
-            Copyright © Feedback
+            Copyright © DOCSFEED
           </p>
         </div>
       </div>
