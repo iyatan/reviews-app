@@ -10,6 +10,7 @@ const Sidebar = () => {
   const [showOnMobile, setShowOnMobile] = useState(false);
 
   const user = useContext(UserContext);
+  console.log(user);
   const router = useRouter();
   const handleSignOut = () => {
     auth.signOut();
@@ -68,8 +69,8 @@ const Sidebar = () => {
               <ClosedButton />
             </button>
             <img
-              src="https://lh3.googleusercontent.com/a/ALm5wu3zdz2mV_hHWArWJ0rjQUG2tkOZ4MikVaDle-Cl9A=s96-c"
-              alt=""
+              src={user?.currentUser?.photoURL || "/imgs/user.png"}
+              alt="Proile"
               className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
             />
             <h5 className="block mt-4 text-xl font-semibold text-gray-600 lg:block">

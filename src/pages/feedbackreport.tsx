@@ -52,41 +52,47 @@ const FeedbackReport: NextPage = () => {
     <div className="md:ml-[20%] md:w-9/12 flex flex-col">
       <div className="flex justify-between">
         <div className="flex flex-col">
-          <div className="md:p-6 mt-6 mr-2 md:mr-20 bg-white rounded-lg border border-gray-200 shadow-md ">
-            <div className="flex items-center justify-between mb-4">
-              <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                Latest Feedback
-              </h5>
+          {Object.entries(userComments).length !== 0 ? (
+            <div className="flex mt-20">
+              You have not received any feedback yet
             </div>
-            <div className="flow-root">
-              {Object.entries(userComments).map(
-                ([fileUrl, authorComments], index) => (
-                  <div className="mb-5 border" key={index}>
-                    <h6 className="text-lg font-bold leading-none text-gray-900 dark:text-white">
-                      <img src={fileUrl} />
-                    </h6>
-                    <ul
-                      role="list"
-                      className="divide-y divide-gray-200 dark:divide-gray-700"
-                    >
-                      {authorComments.map((comment, i) => (
-                        <div
-                          key={i}
-                          className="flex  bg-white p-4 col-span-12 mt-1"
-                        >
-                          <div className="ml-4 w-full">
-                            <div className="mt-4">
-                              <p>{comment}</p>
+          ) : (
+            <div className="md:p-6 mt-6 mr-2 md:mr-20 bg-white rounded-lg border border-gray-200 shadow-md ">
+              <div className="flex items-center justify-between mb-4">
+                <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
+                  Latest Feedback
+                </h5>
+              </div>
+              <div className="flow-root">
+                {Object.entries(userComments).map(
+                  ([fileUrl, authorComments], index) => (
+                    <div className="mb-5 border" key={index}>
+                      <h6 className="text-lg font-bold leading-none text-gray-900 dark:text-white">
+                        <img src={fileUrl} />
+                      </h6>
+                      <ul
+                        role="list"
+                        className="divide-y divide-gray-200 dark:divide-gray-700"
+                      >
+                        {authorComments.map((comment, i) => (
+                          <div
+                            key={i}
+                            className="flex  bg-white p-4 col-span-12 mt-1"
+                          >
+                            <div className="ml-4 w-full">
+                              <div className="mt-4">
+                                <p>{comment}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                    </ul>
-                  </div>
-                )
-              )}
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
