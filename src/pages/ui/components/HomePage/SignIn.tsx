@@ -26,7 +26,7 @@ const SignIn = (props: AuthProps) => {
   };
 
   const signInWithGoogle = () => {
-    auth.signInWithPopup(googleAuthProvider).then(() => {
+    auth.signInWithRedirect(googleAuthProvider).then(() => {
       //   router.push("/dashboard");
     });
   };
