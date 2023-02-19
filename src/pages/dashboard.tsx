@@ -52,12 +52,9 @@ const Dashboard: NextPage<Props> = ({ posts }) => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="nd:ml-[20%] md:w-9/12 flex flex-col">
       <div className="flex justify-between">
-        <div>
-          <Sidebar />
-        </div>
-        <div className="flex flex-col w-9/12">
+        <div className="flex flex-col">
           {posts.map((post) => (
             <DashboardCard key={post.id} post={post} />
           ))}

@@ -40,7 +40,6 @@ const Sidebar = () => {
         onClick={() => setShowOnMobile(!showOnMobile)}
         className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
-        <span className="sr-only">Open sidebar</span>
         <svg
           className="w-6 h-6"
           aria-hidden="true"
@@ -86,6 +85,7 @@ const Sidebar = () => {
             <li>
               <Link href={menuItems[0].href}>
                 <a
+                  onClick={() => setShowOnMobile(false)}
                   aria-label="dashboard"
                   className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl ${
                     (router.asPath.includes("dashboard") ||
@@ -118,6 +118,7 @@ const Sidebar = () => {
             <li>
               <Link href={menuItems[1].href}>
                 <a
+                  onClick={() => setShowOnMobile(false)}
                   className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl ${
                     router.asPath === "/fileupload" &&
                     "text-white bg-gradient-to-r from-blue-600 to-blue-400 "
@@ -149,6 +150,7 @@ const Sidebar = () => {
             <li>
               <Link href={menuItems[2].href}>
                 <a
+                  onClick={() => setShowOnMobile(false)}
                   className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl ${
                     router.asPath === "/feedbackreport" &&
                     "text-white bg-gradient-to-r from-blue-600 to-blue-400 "

@@ -7,6 +7,7 @@ import HiCheck from "./ui/shared/HiCheck";
 import { occupation } from "./api/occupations";
 import { useRouter } from "next/router";
 import StatusMessage from "./ui/shared/StatusMessage";
+import Sidebar from "./ui/components/DashBoard/Sidebar";
 
 const FileUpload: NextPage = () => {
   const { currentUser, posts, setPosts } = useContext(UserContext);
@@ -120,10 +121,10 @@ const FileUpload: NextPage = () => {
     );
   }
   return (
-    <div className="flex flex-col">
-      <div className="flex justify-around h-screen ">
-        <div className="flex flex-col w-9/12 ">
-          <div className="flex self-center justify-center h-5/6  pt-0 m-20 w-5/6 ml-96 bg-white rounded-2xl border border-gray-200 shadow-md  ">
+    <div className="md:ml-[20%] mt-10 w-9/12 flex flex-col ">
+      <div className="flex justify-between ">
+        <div className="flex flex-col md:w-[90%] ">
+          <div className="md:p-6 mt-6 md:mr-20 w-full bg-white rounded-lg border border-gray-200 shadow-md   ">
             {approval ? (
               <HiCheck />
             ) : (
@@ -151,9 +152,7 @@ const FileUpload: NextPage = () => {
                         </select>
                       </div>
                       <div className="mb-1 w-6/12">
-                        <span className="text-sm text-gray-500">
-                          Type of document
-                        </span>
+                        <span className="text-sm text-gray-500">Type</span>
                         <select
                           ref={typeOfDocumentRef}
                           className="h-12  px-3 w-full border-2 rounded focus:outline-none"

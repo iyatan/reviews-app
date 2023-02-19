@@ -29,13 +29,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <AuthProvider>
-        {pageLoading ? <Loader /> : <Component {...pageProps} />}
-        {showSideBar && (
-          <div>
-            <Sidebar />
-            <Dashboard posts={[]} />
-          </div>
-        )}
+        <div className=" flex flex-row">
+          {showSideBar && <Sidebar />}
+          {pageLoading ? <Loader /> : <Component {...pageProps} />}
+        </div>
       </AuthProvider>
     </>
   );
