@@ -10,7 +10,7 @@ const Sidebar = () => {
   const [showOnMobile, setShowOnMobile] = useState(false);
 
   const user = useContext(UserContext);
-  console.log(user);
+
   const router = useRouter();
   const handleSignOut = () => {
     auth.signOut();

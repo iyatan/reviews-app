@@ -7,12 +7,30 @@ import Loader from "./ui/shared/Loader";
 import Sidebar from "./ui/components/DashBoard/Sidebar";
 import Dashboard from "./dashboard";
 import React from "react";
+import WebViewMessage from "./ui/shared/WebViewMessage";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const showSideBar = router.pathname === "/" ? false : true;
+
   const [pageLoading, setPageLoading] = useState<boolean>(false);
+  const [showWebViewModal, setShowWebViewModal] = useState<boolean>(false);
+
   useEffect(() => {
+    const isWebView = () => {
+      const userAgent = navigator.userAgent || navigator.vendor;
+      return (
+        (userAgent.indexOf("FBAN") > -1 && userAgent.indexOf("FBAV") > -1) ||
+        userAgent.indexOf("LINE") > -1 ||
+        userAgent.indexOf("Twitter") > -1 ||
+        userAgent.indexOf("Instagram") > -1
+      );
+    };
+
+    if (isWebView()) {
+      setShowWebViewModal(true);
+    }
+
     const handleStart = () => {
       setPageLoading(true);
     };
@@ -29,10 +47,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <AuthProvider>
-        <div className=" flex flex-row">
-          {showSideBar && <Sidebar />}
-          {pageLoading ? <Loader /> : <Component {...pageProps} />}
-        </div>
+        {showWebViewModal ? (
+          <WebViewMessage />
+        ) : (
+          <div className="flex flex-row">
+            {showSideBar && <Sidebar />}
+            {pageLoading ? <Loader /> : <Component {...pageProps} />}
+          </div>
+        )}
       </AuthProvider>
     </>
   );
