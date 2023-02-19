@@ -3,12 +3,16 @@ import { NextPage } from "next";
 import { UserContext } from "../../context";
 import { realTimeDb, storage } from "../../firebase/clientApp";
 import Sidebar from "./ui/components/DashBoard/Sidebar";
+import { useRouter } from "next/router";
+import Loader from "./ui/shared/Loader";
 
 const FeedbackReport: NextPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(UserContext);
   const [userComments, setUserComments] = useState<{ [key: string]: string[] }>(
     {}
   );
+  const router = useRouter();
 
   useEffect(() => {
     if (!currentUser) {
@@ -36,6 +40,19 @@ const FeedbackReport: NextPage = () => {
     };
   }, [currentUser]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (!currentUser) {
+        router.push("/");
+      } else {
+        setIsLoading(false);
+      }
+    }, 500);
+  }, [router, currentUser]);
+  if (isLoading) {
+    return <Loader />;
+  }
+
   if (!currentUser) {
     return (
       <div className="flex h-full flex-col justify-center items-center">
@@ -52,8 +69,8 @@ const FeedbackReport: NextPage = () => {
     <div className="md:ml-[20%] md:w-9/12 flex flex-col">
       <div className="flex justify-between">
         <div className="flex flex-col">
-          {Object.entries(userComments).length !== 0 ? (
-            <div className="flex mt-20">
+          {Object.entries(userComments).length === 0 ? (
+            <div className="flex center align-middle justify-center  mt-20">
               You have not received any feedback yet
             </div>
           ) : (

@@ -8,8 +8,10 @@ import { occupation } from "./api/occupations";
 import { useRouter } from "next/router";
 import StatusMessage from "./ui/shared/StatusMessage";
 import Sidebar from "./ui/components/DashBoard/Sidebar";
+import Loader from "./ui/shared/Loader";
 
 const FileUpload: NextPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const { currentUser, posts, setPosts } = useContext(UserContext);
 
   const [fileUpload, setFileUpload] = useState<string | ArrayBuffer | null>("");
@@ -46,6 +48,20 @@ const FileUpload: NextPage = () => {
       setPosts(updatedPosts as any);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!currentUser) {
+        router.push("/");
+      } else {
+        setIsLoading(false);
+      }
+    }, 500);
+  }, [router, currentUser]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const handleSubmitInfo = (e: any) => {
     e.preventDefault();
@@ -113,6 +129,7 @@ const FileUpload: NextPage = () => {
     professionRef.current!.value = "";
     setApproval(true);
   };
+
   if (points < 1) {
     return (
       <div>
