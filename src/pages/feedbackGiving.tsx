@@ -37,7 +37,7 @@ const FeedbackGiving: NextPage = () => {
       <div className=" flex-col mt-[20%] w-full h-full flex justify-center items-center">
         <HiCheck></HiCheck>
         <div className="text-center">
-          Thank you for your feedback. You're welcome to submit another or
+          Thank you for your feedback. You&apos;re welcome to submit another or
           upload a document to receive feedback in return{" "}
         </div>
       </div>
