@@ -140,7 +140,7 @@ const FileUpload: NextPage = () => {
       <div className="flex justify-between ">
         <div className="flex flex-col md:w-[90%] ">
           <div className="md:p-6 mt-6 md:mr-20 w-full bg-white rounded-lg border border-gray-200 shadow-md   ">
-            {!approval ? (
+            {approval ? (
               <div className=" flex-col  w-full h-full flex justify-center items-center">
                 <HiCheck></HiCheck>
                 <div className="text-center">
