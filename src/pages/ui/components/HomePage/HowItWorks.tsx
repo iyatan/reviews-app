@@ -56,7 +56,7 @@ const HowItWorks = () => (
               </h3>
               <h5 className="text-lg font-medium mb-4"></h5>
               <p className="text-gray-500">
-                Enter our timeline by uploading your resume for review.
+                Enter our database by uploading your resume for review.
               </p>
             </div>
           </div>

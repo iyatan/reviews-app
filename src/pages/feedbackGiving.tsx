@@ -5,6 +5,7 @@ import { realTimeDb } from "../../firebase/clientApp";
 import HiCheck from "./ui/shared/HiCheck";
 import Sidebar from "./ui/components/DashBoard/Sidebar";
 import { UserContext } from "../../context";
+import StatusMessage from "./ui/shared/StatusMessage";
 
 const FeedbackGiving: NextPage = () => {
   const commentInputRef = useRef<HTMLInputElement>();
@@ -32,7 +33,15 @@ const FeedbackGiving: NextPage = () => {
   };
 
   if (approval) {
-    return <HiCheck></HiCheck>;
+    return (
+      <div className=" flex-col mt-[20%] w-full h-full flex justify-center items-center">
+        <HiCheck></HiCheck>
+        <div className="text-center">
+          Thank you for your feedback. You're welcome to submit another or
+          upload a document to receive feedback in return{" "}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -65,7 +74,7 @@ const FeedbackGiving: NextPage = () => {
               ></textarea>
             </div>
             <button
-              className="h-10 w-full bg-blue-600 rounded text-white hover:bg-blue-700"
+              className="ml-2 h-10 w-full bg-blue-600 rounded text-white hover:bg-blue-700"
               onClick={handleCommentSubmit}
               type="submit"
             >

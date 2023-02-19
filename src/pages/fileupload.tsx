@@ -76,12 +76,10 @@ const FileUpload: NextPage = () => {
     }
     const fileType = file ? file.type : "";
     if (
-      !(
-        fileType === "image/svg+xml" ||
-        fileType === "image/png" ||
-        fileType === "image/jpeg" ||
-        fileType === "image/gif"
-      )
+      !fileType.startsWith("image/svg") &&
+      !fileType.startsWith("image/png") &&
+      !fileType.startsWith("image/jpeg") &&
+      !fileType.startsWith("image/gif")
     ) {
       alert("File type must be SVG, PNG, JPG, or GIF.");
       return;
@@ -104,7 +102,7 @@ const FileUpload: NextPage = () => {
             .ref(`posts/${postId}`)
             .putString(fileUpload.toString(), "data_url");
           // filepickerRef.current.value = null;
-          setFileUpload(null);
+          setFileUpload("");
           uploadTask.on(
             "state_changed",
             null,
@@ -142,8 +140,14 @@ const FileUpload: NextPage = () => {
       <div className="flex justify-between ">
         <div className="flex flex-col md:w-[90%] ">
           <div className="md:p-6 mt-6 md:mr-20 w-full bg-white rounded-lg border border-gray-200 shadow-md   ">
-            {approval ? (
-              <HiCheck />
+            {!approval ? (
+              <div className=" flex-col  w-full h-full flex justify-center items-center">
+                <HiCheck></HiCheck>
+                <div className="text-center">
+                  Thank you for submitting your document. Your document will be
+                  reviewed and you will be notified when it is ready.
+                </div>
+              </div>
             ) : (
               <div className="w-full ">
                 <div>

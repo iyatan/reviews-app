@@ -7,11 +7,11 @@ const Footer = () => {
     <div className="w-full min-h-screen flex items-center justify-center bg-black">
       <div className="md:w-2/3 w-full px-4 text-white flex flex-col">
         <div className="w-full text-7xl font-bold">
-          <h1 className="w-full md:w-2/3">How can you get started</h1>
+          <h1 className="w-full md:w-2/3">How you can get started</h1>
         </div>
         <div className="flex mt-8 flex-col md:flex-row md:justify-between">
           <p className="w-full md:w-2/3 text-gray-400">
-            Sign up today and start getting authentic feedbacks
+            Sign up today and start getting authentic feedback
           </p>
           <div className="w-44 pt-6 md:pt-0">
             <button

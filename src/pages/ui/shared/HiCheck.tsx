@@ -1,7 +1,7 @@
 const HiCheck = () => {
   return (
-    <div className="text-center">
-      <div role="status">
+    <div className="">
+      <div className="text-center" role="status">
         <span className="bg-blue-100 text-blue-800 text-9xl font-semibold inline-flex items-center p-1.5 rounded-full dark:bg-blue-200 dark:text-blue-800">
           <svg
             aria-hidden="true"
@@ -21,4 +21,5 @@ const HiCheck = () => {
     </div>
   );
 };
+
 export default HiCheck;

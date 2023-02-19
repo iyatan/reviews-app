@@ -11,9 +11,7 @@ const Features = () => (
         </div>
         <div className="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-8/12">
           <div className="px-6 py-12 md:px-12">
-            <h2 className="text-3xl font-bold mb-4 text-blue-600 display-5">
-              Main Features
-            </h2>
+            <h2 className="text-3xl font-bold mb-4 display-5">Main Features</h2>
             <div className="text-gray-500 mb-12">
               Our platform offers the following key features to streamline your
               document review process:
@@ -25,18 +23,18 @@ const Features = () => (
                   Collaborative Review
                 </h2>
                 <h5 className="text-lg font-medium text-gray-500 mb-0">
-                  Receive feedback from multiple reviewers to gain a more
-                  well-rounded perspective on your resume.
+                  Receive feedback from multiple reviewers to gain a robust
+                  perspective on your resume.
                 </h5>
               </div>
 
               <div className="mb-12 md:mb-0">
                 <h2 className="text-3xl font-bold text-blue-600 mb-4">
-                  Customizable Review Criteria.
+                  Customizable Review Criteria
                 </h2>
                 <h5 className="text-lg font-medium text-gray-500 mb-0">
-                  Define your own review criteria to align with your goals and
-                  objectives.
+                  Define your own review criteria thar aligns with your goals
+                  and objectives.
                 </h5>
               </div>
 
@@ -45,8 +43,7 @@ const Features = () => (
                   Document Security
                 </h2>
                 <h5 className="text-lg font-medium text-gray-500 mb-0">
-                  Rest assured that your personal information and confidential
-                  documents.
+                  Rest assured that your personal information is secure with us.
                 </h5>
               </div>
             </div>
