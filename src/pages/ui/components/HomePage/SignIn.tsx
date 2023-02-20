@@ -3,7 +3,6 @@ import { auth, googleAuthProvider } from "../../../../../firebase/clientApp";
 
 import { UserContext } from "../../../../../context";
 import router from "next/router";
-import { useUserData } from "../../../../../hooks/useUserData";
 
 type AuthProps = {
   isVisible: boolean;
@@ -18,6 +17,7 @@ const SignIn = (props: AuthProps) => {
       router.push("/dashboard");
     }
   });
+
   if (!props.isVisible) return null;
   const handleClose = (e: any) => {
     if (e.target.id === "authentication-modal") {
@@ -26,9 +26,7 @@ const SignIn = (props: AuthProps) => {
   };
 
   const signInWithGoogle = () => {
-    auth.signInWithRedirect(googleAuthProvider).then(() => {
-      //   router.push("/dashboard");
-    });
+    auth.signInWithPopup(googleAuthProvider).then(() => {});
   };
 
   return (
