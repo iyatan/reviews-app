@@ -30,18 +30,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (isWebView()) {
       setShowWebViewModal(true);
     }
-
-    const handleStart = () => {
-      setPageLoading(true);
-    };
-
-    const handleComplete = () => {
-      setPageLoading(false);
-    };
-
-    router.events.on("routeChangeStart", handleStart);
-    router.events.on("routeChangeComplete", handleComplete);
-    router.events.on("routeChangeError", handleComplete);
   }, [router]);
 
   return (

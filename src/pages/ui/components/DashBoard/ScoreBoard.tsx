@@ -25,7 +25,7 @@ const ScoreBoard = () => {
           window.location.href = "/pointsSystem";
         }}
         type="button"
-        className="py-2.5 px-5 mt-5  text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200  hover:text-blue-700 focus:z-10 focus:ring-4  "
+        className="py-2.5 px-5 mt-5  text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200  hover:text-blue-700  focus:ring-4  "
       >
         Learn more
       </button>

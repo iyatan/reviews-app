@@ -58,7 +58,7 @@ const Sidebar = () => {
       <aside
         className={`${
           !showOnMobile ? "hidden  " : "w-[100%] md:w-[100%]  flex ml-0"
-        }  bg-opacity-100  fixed z-10 top-0 pb-3 px-6  lg:flex flex-col justify-between h-screen border-r bg-white transition duration-300  lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]`}
+        }     z-50 fixed top-0 bottom-0 pb-3 px-6  lg:flex flex-col md:justify-between h-screen border-r bg-white transition duration-300  lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]`}
       >
         <div>
           <div className="mt-8 text-center">
@@ -182,11 +182,11 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        <div className="m-5">
+        <div className="m-5 ">
           <ScoreBoard />
         </div>
 
-        <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t">
+        <div className="  bottom-0 px-6 -mx-6 pt-4 flex justify-between items-center border-t">
           <button className="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@ const Sidebar = () => {
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
-            <span className="group-hover:text-gray-700" onClick={handleSignOut}>
+            <span className="" onClick={handleSignOut}>
               Logout
             </span>
           </button>
