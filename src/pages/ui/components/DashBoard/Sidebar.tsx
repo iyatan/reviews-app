@@ -69,8 +69,8 @@ const Sidebar = () => {
               <ClosedButton />
             </button>
             <img
-              src={user?.currentUser?.photoURL || "/imgs/user.png"}
-              alt="Proile"
+              src={user?.currentUser?.photoURL || "/images/profile.png"}
+              alt="Profile"
               className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
             />
             <h5 className="block mt-4 text-xl font-semibold text-gray-600 lg:block">

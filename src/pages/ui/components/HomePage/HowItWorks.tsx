@@ -80,7 +80,7 @@ const HowItWorks = () => (
             </div>
             <div className="p-6">
               <h3 className="text-2xl font-bold text-blue-600 mb-4">
-                Receive Feedback.
+                Receive Feedback
               </h3>
               <h5 className="text-lg font-medium mb-4"></h5>
               <p className="text-gray-500">
