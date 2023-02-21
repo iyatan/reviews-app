@@ -38,7 +38,7 @@ const FeedbackGiving: NextPage = () => {
         <HiCheck></HiCheck>
         <div className="text-center">
           Thank you for your feedback. You&apos;re welcome to submit another or
-          upload a document to receive feedback in return{" "}
+          upload resume to receive feedback in return{" "}
         </div>
       </div>
     );

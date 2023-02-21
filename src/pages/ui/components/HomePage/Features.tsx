@@ -14,7 +14,7 @@ const Features = () => (
             <h2 className="text-3xl font-bold mb-4 display-5">Main Features</h2>
             <div className="text-gray-500 mb-12">
               Our platform offers the following key features to streamline your
-              document review process:
+              resume review process:
             </div>
 
             <div className="grid lg:gap-x-12 md:grid-cols-3">
