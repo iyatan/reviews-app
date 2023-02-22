@@ -2,18 +2,18 @@ import "../../styles/globals.css";
 import type { AppProps } from "next/app";
 import { AuthProvider, UserContext } from "../../context";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, Suspense, useEffect, useState } from "react";
 import Loader from "./ui/shared/Loader";
 import Sidebar from "./ui/components/DashBoard/Sidebar";
 import Dashboard from "./dashboard";
 import React from "react";
 import WebViewMessage from "./ui/shared/WebViewMessage";
+import Loading from "./loading";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const showSideBar = router.pathname === "/" ? false : true;
 
-  const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [showWebViewModal, setShowWebViewModal] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,14 +35,16 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <AuthProvider>
-        {showWebViewModal ? (
-          <WebViewMessage />
-        ) : (
-          <div className="flex flex-row">
-            {showSideBar && <Sidebar />}
-            {pageLoading ? <Loader /> : <Component {...pageProps} />}
-          </div>
-        )}
+        <Suspense fallback={<Loading />}>
+          {showWebViewModal ? (
+            <WebViewMessage />
+          ) : (
+            <div className="flex flex-row">
+              {showSideBar && <Sidebar />}
+              <Component {...pageProps} />
+            </div>
+          )}
+        </Suspense>
       </AuthProvider>
     </>
   );
