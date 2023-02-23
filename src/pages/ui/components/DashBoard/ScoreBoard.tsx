@@ -17,8 +17,8 @@ const ScoreBoard = () => {
         <h1 className=" text-lg "> {points}</h1>
       </div>
       <div className="mt-5">
-        To get a resume reviewed, users must earn points by reviewing others'
-        resumes, with each review earning 1 point
+        To get a resume reviewed, users must earn points by reviewing
+        others&apos; resumes, with each review earning 1 point
       </div>
       <button
         onClick={() => {
