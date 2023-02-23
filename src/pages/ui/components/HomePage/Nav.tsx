@@ -21,7 +21,7 @@ const Nav = () => {
                 alt="Feedback Logo"
               />
               <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                DOCSFEED
+                DocsFeed
               </span>
             </a>
             <div className="flex md:order-2">

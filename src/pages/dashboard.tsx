@@ -11,6 +11,7 @@ import DashboardCard from "./ui/components/DashBoard/DashBoardCard";
 import { realTimeDb } from "../../firebase/clientApp";
 import { UserContext } from "../../context";
 import Loader from "./ui/shared/Loader";
+import ExplanationModal from "./ui/components/DashBoard/ExplanationModal";
 
 interface Post {
   author: any;
@@ -47,20 +48,30 @@ const Dashboard: NextPage<Props> = ({ posts }) => {
     }, 500);
   }, [router, currentUser]);
 
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <div className="md:ml-[20%] md:w-9/12 flex flex-col">
-      <div className="flex justify-between">
-        <div className="flex flex-col">
-          {posts.map((post) => (
-            <DashboardCard key={post.id} post={post} />
-          ))}
+    <>
+      {isModalOpen && <ExplanationModal onClose={handleModalClose} />}
+
+      <div className="md:ml-[20%] md:w-9/12 flex flex-col">
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            {posts.map((post) => (
+              <DashboardCard key={post.id} post={post} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
