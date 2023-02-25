@@ -60,7 +60,9 @@ const Dashboard: NextPage<Props> = ({ posts }) => {
 
   return (
     <>
-      {isModalOpen && <ExplanationModal onClose={handleModalClose} />}
+      {isModalOpen && !localStorage.getItem("explanation_modal_seen") && (
+        <ExplanationModal onClose={handleModalClose} />
+      )}
 
       <div className="md:ml-[20%] md:w-9/12 flex flex-col">
         <div className="flex justify-between">

@@ -69,7 +69,7 @@ const Sidebar = () => {
               <ClosedButton />
             </button>
             <img
-              src={user?.currentUser?.photoURL || "/images/profile.png"}
+              src={user?.currentUser?.photoURL || "/imgs/user.png"}
               alt="Profile"
               className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
             />
@@ -175,9 +175,9 @@ const Sidebar = () => {
           <ScoreBoard />
         </div>
 
-        <div className="  bottom-0 px-6 -mx-6 pt-4 flex justify-between items-center border-t">
+        <div className="   bottom-0 px-6 -mx-6 pt-4 flex justify-between items-center border-t">
           <button
-            className="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group"
+            className=" w-full px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group"
             onClick={handleSignOut}
           >
             <svg

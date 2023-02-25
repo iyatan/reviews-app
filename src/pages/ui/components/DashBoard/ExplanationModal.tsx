@@ -5,6 +5,7 @@ type Props = {
 };
 
 const ExplanationModal = ({ onClose }: Props) => {
+  localStorage.setItem("explanation_modal_seen", "true");
   useEffect(() => {
     const handleEscape = (event: { key: string }) => {
       if (event.key === "Escape") {
@@ -19,9 +20,9 @@ const ExplanationModal = ({ onClose }: Props) => {
     };
   }, [onClose]);
   return (
-    <div className="fixed m-auto z-50 w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-modal md:h-full flex justify-center items-center bg-opacity-100  backdrop-blur-md">
+    <div className="fixed  m-auto z-50 md:w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-modal md:h-full flex justify-center items-center bg-opacity-100  backdrop-blur-md">
       <div tabIndex={-1} aria-hidden="true" className="fixed  ">
-        <div className="relative w-full h-full max-w-md md:h-auto">
+        <div className="relative w-full  max-w-md md:h-auto">
           <div className="relative bg-white rounded-lg shadow">
             <button
               type="button"
@@ -36,9 +37,9 @@ const ExplanationModal = ({ onClose }: Props) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
               <span className="sr-only">Close modal</span>
@@ -51,7 +52,7 @@ const ExplanationModal = ({ onClose }: Props) => {
             </div>
 
             <div>
-              <h2 className=" font-bold text-xl p-4">
+              <h2 className=" font-bold text-l p-4">
                 To receive feedback on their own resume, users must first review
                 other resumes to earn points; each review completed earns one
                 point, and one point is required to upload a resume for review,
