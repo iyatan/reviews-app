@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/pdf.worker.min.js",
+      "destination": "/_next/static/pdf.worker.min.js"
+    }
+  ]
+}
