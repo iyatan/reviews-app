@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import StatusMessage from "./ui/shared/StatusMessage";
 import Loader from "./ui/shared/Loader";
 
-import mammoth from "mammoth";
+import { convertToHtml } from "mammoth";
 
 import { getDocument } from "pdfjs-dist/legacy/build/pdf";
 import { GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
@@ -68,7 +68,7 @@ const FileUpload: NextPage = () => {
 
   const wordToImage = async (file: File): Promise<string | null> => {
     try {
-      const result = await mammoth.convertToHtml({
+      const result = await convertToHtml({
         arrayBuffer: await file.arrayBuffer(),
       });
       const html = result.value;
