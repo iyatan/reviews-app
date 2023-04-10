@@ -7,8 +7,13 @@ import HiCheck from "./ui/shared/HiCheck";
 import { occupation } from "./api/occupations";
 import { useRouter } from "next/router";
 import StatusMessage from "./ui/shared/StatusMessage";
-import Sidebar from "./ui/components/DashBoard/Sidebar";
 import Loader from "./ui/shared/Loader";
+
+import * as mammoth from "mammoth";
+
+import { getDocument } from "pdfjs-dist/legacy/build/pdf";
+import { GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
+import html2canvas from "html2canvas";
 
 const FileUpload: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,15 +36,80 @@ const FileUpload: NextPage = () => {
     setPoints(snapshot.val());
   });
 
-  const addDocument = (e: any) => {
-    const reader = new FileReader();
-    setFileName(e.target.files[0].name);
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
+  const pdfToImage = async (file: File): Promise<string | null> => {
+    try {
+      GlobalWorkerOptions.workerSrc = new URL(
+        "/pdf.worker.min.js",
+        window.location.origin
+      ).href;
+
+      const pdfBytes = await file.arrayBuffer();
+      const loadingTask = getDocument({ data: pdfBytes });
+      const pdfDoc = await loadingTask.promise;
+      const page = await pdfDoc.getPage(1);
+
+      const viewport = page.getViewport({ scale: 2 });
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+      return canvas.toDataURL();
+    } catch (error) {
+      console.error("Error converting PDF to image:", error);
+      return null;
     }
-    reader.onload = (readerEvent) => {
-      setFileUpload(readerEvent.target?.result ?? "");
-    };
+  };
+
+  const wordToImage = async (file: File): Promise<string | null> => {
+    try {
+      const result = await mammoth.convertToHtml({
+        arrayBuffer: await file.arrayBuffer(),
+      });
+      const html = result.value;
+
+      const container = document.createElement("div");
+      container.innerHTML = html;
+      container.style.width = "800px";
+      container.style.overflow = "hidden";
+      document.body.appendChild(container);
+
+      const canvas = await html2canvas(container);
+      document.body.removeChild(container);
+
+      const imageDataUrl = canvas.toDataURL();
+      return imageDataUrl;
+    } catch (error) {
+      console.error("Error converting Word document to image:", error);
+      return null;
+    }
+  };
+
+  const addDocument = async (e: any) => {
+    const file = e.target.files[0];
+    setFileName(file.name);
+    const fileType = file.type;
+
+    if (fileType.startsWith("application/pdf")) {
+      const imageDataUrl = await pdfToImage(file);
+      setFileUpload(imageDataUrl);
+    } else if (
+      fileType ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+      const imageDataUrl = await wordToImage(file);
+      setFileUpload(imageDataUrl);
+    } else {
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      reader.onload = (readerEvent) => {
+        setFileUpload(readerEvent.target?.result ?? "");
+      };
+    }
   };
 
   const updatePosts = (post: any) => {
@@ -79,9 +149,12 @@ const FileUpload: NextPage = () => {
       !fileType.startsWith("image/svg") &&
       !fileType.startsWith("image/png") &&
       !fileType.startsWith("image/jpeg") &&
-      !fileType.startsWith("image/gif")
+      !fileType.startsWith("image/gif") &&
+      !fileType.startsWith("application/pdf") &&
+      fileType !==
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ) {
-      alert("File type must be SVG, PNG, JPG, or GIF.");
+      alert("File type must be SVG, PNG, JPG, GIF, PDF, or Word document.");
       return;
     }
 
@@ -101,7 +174,6 @@ const FileUpload: NextPage = () => {
           const uploadTask = storage
             .ref(`posts/${postId}`)
             .putString(fileUpload.toString(), "data_url");
-          // filepickerRef.current.value = null;
           setFileUpload("");
           uploadTask.on(
             "state_changed",
@@ -109,7 +181,28 @@ const FileUpload: NextPage = () => {
             (error) => {
               alert(error);
             },
-            () => {
+            async () => {
+              const emailSubject =
+                "Your document has been submitted for review";
+              const emailContent = `<p>Your document ${fileName} has been submitted for review. You will be notified when it is ready.</p>`;
+
+              try {
+                console.log(currentUser?.email);
+                await fetch("/api/send-email", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    to: currentUser?.email,
+                    subject: emailSubject,
+                    html: emailContent,
+                  }),
+                });
+              } catch (error) {
+                console.error("Error sending email:", error);
+              }
+
               storage
                 .ref("posts")
                 .child(postId)
@@ -124,7 +217,7 @@ const FileUpload: NextPage = () => {
         }
       });
     inputRef.current.value = "";
-    professionRef.current!.value = "";
+    if (professionRef.current) professionRef.current.value = "";
     setApproval(true);
   };
 
@@ -226,7 +319,7 @@ const FileUpload: NextPage = () => {
                             {fileUpload ? "" : "or drag and drop"}
                           </p>
                           <p className="text-xs text-gray-500 dark:text-gray-400">
-                            SVG, PNG, JPG, GIF up to 5MB
+                            SVG, PNG, JPG, GIF, PDF, or Word document up to 5MB
                           </p>
                         </div>
                         <input
