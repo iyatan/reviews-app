@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import StatusMessage from "./ui/shared/StatusMessage";
 import Loader from "./ui/shared/Loader";
 
-import * as mammoth from "mammoth";
+import mammoth from "mammoth";
 
 import { getDocument } from "pdfjs-dist/legacy/build/pdf";
 import { GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
@@ -51,6 +51,9 @@ const FileUpload: NextPage = () => {
       const viewport = page.getViewport({ scale: 2 });
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
+      if (!context) {
+        throw new Error("Failed to get canvas context");
+      }
       canvas.width = viewport.width;
       canvas.height = viewport.height;
 
