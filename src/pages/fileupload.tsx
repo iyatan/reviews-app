@@ -9,11 +9,8 @@ import { useRouter } from "next/router";
 import StatusMessage from "./ui/shared/StatusMessage";
 import Loader from "./ui/shared/Loader";
 
-import { convertToHtml } from "mammoth";
-
 import { getDocument } from "pdfjs-dist/legacy/build/pdf";
 import { GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
-import domtoimage from "dom-to-image";
 
 const FileUpload: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,29 +63,6 @@ const FileUpload: NextPage = () => {
     }
   };
 
-  const wordToImage = async (file: File): Promise<string | null> => {
-    try {
-      const result = await convertToHtml({
-        arrayBuffer: await file.arrayBuffer(),
-      });
-      const html = result.value;
-
-      const container = document.createElement("div");
-      container.innerHTML = html;
-      container.style.width = "800px";
-      container.style.overflow = "hidden";
-      document.body.appendChild(container);
-
-      const imageDataUrl = await domtoimage.toPng(container);
-      document.body.removeChild(container);
-
-      return imageDataUrl;
-    } catch (error) {
-      console.error("Error converting Word document to image:", error);
-      return null;
-    }
-  };
-
   const addDocument = async (e: any) => {
     const file = e.target.files[0];
     setFileName(file.name);
@@ -97,13 +71,15 @@ const FileUpload: NextPage = () => {
     if (fileType.startsWith("application/pdf")) {
       const imageDataUrl = await pdfToImage(file);
       setFileUpload(imageDataUrl);
-    } else if (
-      fileType ===
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ) {
-      const imageDataUrl = await wordToImage(file);
-      setFileUpload(imageDataUrl);
-    } else {
+    }
+    //  else if (
+    //   fileType ===
+    //   "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    // ) {
+    //   const imageDataUrl = await wordToImage(file);
+    //   setFileUpload(imageDataUrl);
+    // }
+    else {
       const reader = new FileReader();
       if (file) {
         reader.readAsDataURL(file);
