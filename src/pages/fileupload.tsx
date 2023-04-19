@@ -13,7 +13,7 @@ import { convertToHtml } from "mammoth";
 
 import { getDocument } from "pdfjs-dist/legacy/build/pdf";
 import { GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
-import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image";
 
 const FileUpload: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -79,10 +79,9 @@ const FileUpload: NextPage = () => {
       container.style.overflow = "hidden";
       document.body.appendChild(container);
 
-      const canvas = await html2canvas(container);
+      const imageDataUrl = await domtoimage.toPng(container);
       document.body.removeChild(container);
 
-      const imageDataUrl = canvas.toDataURL();
       return imageDataUrl;
     } catch (error) {
       console.error("Error converting Word document to image:", error);
