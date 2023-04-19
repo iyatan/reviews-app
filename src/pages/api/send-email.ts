@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import sendEmail from "../../utils/sendEmail";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("hereeeeeeee");
   if (req.method === "POST") {
     const { to, subject, html } = req.body;
 
