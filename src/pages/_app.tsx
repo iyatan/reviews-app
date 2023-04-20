@@ -8,7 +8,6 @@ import Sidebar from "./ui/components/DashBoard/Sidebar";
 import Dashboard from "./dashboard";
 import React from "react";
 import WebViewMessage from "./ui/shared/WebViewMessage";
-import Loading from "./loading";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -35,7 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <AuthProvider>
-        <Suspense fallback={<Loading />}>
+        <Suspense>
           {showWebViewModal ? (
             <WebViewMessage />
           ) : (
