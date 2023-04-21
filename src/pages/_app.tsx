@@ -22,7 +22,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         (userAgent.indexOf("FBAN") > -1 && userAgent.indexOf("FBAV") > -1) ||
         userAgent.indexOf("LINE") > -1 ||
         userAgent.indexOf("Twitter") > -1 ||
-        userAgent.indexOf("Instagram") > -1
+        userAgent.indexOf("Instagram") > -1 ||
+        userAgent.indexOf("Snapchat") > -1 ||
+        userAgent.indexOf("Reddit") > -1 ||
+        userAgent.indexOf("Discord") > -1
       );
     };
 
